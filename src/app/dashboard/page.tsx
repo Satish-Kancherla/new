@@ -42,7 +42,7 @@ export default function Dashboard() {
     return (
         <div className="space-y-6 p-4">
             <div className="grid gap-8 p-5 md:grid-cols-2 lg:grid-cols-4">
-                <MetricCard title="Patients" value={stats?.pcount} icon={Users} trend="up" trendValue="5.25%" />
+                <MetricCard title="Total Patients" value={stats?.pcount} icon={Users} trend="up" trendValue="5.25%" />
                 <MetricCard title="Reference" value="4" icon={PersonStandingIcon} trend="up" trendValue="2.5%" />
                 {/* <MetricCard title="Active Projects" value="23" icon={Blocks} trend="down" trendValue="1.5%" />
                 <MetricCard title="Avg. Session Duration" value="24m 13s" icon={Clock} trend="up" trendValue="3.7%" /> */}

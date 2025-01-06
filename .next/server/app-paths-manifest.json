@@ -1,18 +1,8 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/api/medical-records/[id]/route": "app/api/medical-records/[id]/route.js",
-  "/api/medical-records/patients/[patientId]/route": "app/api/medical-records/patients/[patientId]/route.js",
-  "/api/medical-records/patients/route": "app/api/medical-records/patients/route.js",
-  "/api/medical-records/route": "app/api/medical-records/route.js",
-  "/api/medical-records/search/route": "app/api/medical-records/search/route.js",
-  "/api/stats/route": "app/api/stats/route.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/dashboard/page": "app/dashboard/page.js",
-  "/medical-records/[id]/page": "app/medical-records/[id]/page.js",
-  "/medical-records/medication/[id]/page": "app/medical-records/medication/[id]/page.js",
-  "/medical-records/update/[id]/page": "app/medical-records/update/[id]/page.js",
-  "/medical-records/view/[id]/page": "app/medical-records/view/[id]/page.js",
   "/page": "app/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/api/stats/route": "app/api/stats/route.js",
   "/patients-form/page": "app/patients-form/page.js",
-  "/patients/page": "app/patients/page.js"
+  "/patients/page": "app/patients/page.js",
+  "/api/medical-records/route": "app/api/medical-records/route.js"
 }

@@ -182,10 +182,10 @@ export default function MedicalRecordDisplay({ id }: MedicalRecordDisplayProps) 
               <p className="whitespace-pre-line">{record.problem}</p>
             </div>
             <div className="p-2 border-r border-gray-300">
-              <p className="text-blue-600 whitespace-pre-line">{record.clinicalNotes}</p>
+              <p className="whitespace-pre-line">{record.clinicalNotes}</p>
             </div>
             <div className="p-2">
-              <p className="text-blue-600 whitespace-pre-line">{record.treatment}</p>
+              <p className=" whitespace-pre-line">{record.treatment}</p>
             </div>
           </div>
         </div>

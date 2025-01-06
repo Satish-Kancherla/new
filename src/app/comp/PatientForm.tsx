@@ -88,14 +88,14 @@ export default function PatientForm() {
                 <div>
                     <Label htmlFor="patientName">Patient Name</Label>
                     <Input id="patientName" {...register("patientName")} />
-                    {errors.patientName && <p className="text-red-500">{errors.patientName.message}</p>}
+                    {errors.patientName && <p className="text-red-500 text-sm">{errors.patientName.message}</p>}
                 </div>
 
                 {/* Age */}
                 <div>
                     <Label htmlFor="age">Age</Label>
                     <Input id="age" type="number" {...register("age")} />
-                    {errors.age && <p className="text-red-500">{errors.age.message}</p>}
+                    {errors.age && <p className="text-red-500 text-sm">{errors.age.message}</p>}
                 </div>
 
                 {/* Gender */}
@@ -117,49 +117,49 @@ export default function PatientForm() {
                             </Select>
                         )}
                     />
-                    {errors.gender && <p className="text-red-500">{errors.gender.message}</p>}
+                    {errors.gender && <p className="text-red-500 text-sm">{errors.gender.message}</p>}
                 </div>
 
                 {/* Reference */}
                 <div>
                     <Label htmlFor="reference">Reference</Label>
                     <Input id="reference" {...register("reference")} />
-                    {errors.reference && <p className="text-red-500">{errors.reference.message}</p>}
+                    {errors.reference && <p className="text-red-500 text-sm">{errors.reference.message}</p>}
                 </div>
 
                 {/* Registration Date */}
                 <div>
                     <Label htmlFor="regDate">Registration Date</Label>
                     <Input id="regDate" type="date" {...register("regDate")} />
-                    {errors.regDate && <p className="text-red-500">{errors.regDate.message}</p>}
+                    {errors.regDate && <p className="text-red-500 text-sm">{errors.regDate.message}</p>}
                 </div>
 
                 {/* Phone */}
                 <div>
                     <Label htmlFor="phone">Phone</Label>
                     <Input id="phone" type="number" {...register("phone")} />
-                    {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
+                    {errors.phone && <p className="text-red-500 text-sm">{errors.phone.message}</p>}
                 </div>
 
                 {/* Weight */}
                 <div>
                     <Label htmlFor="weight">Weight (kg)</Label>
                     <Input id="weight" type="number" {...register("weight")} />
-                    {errors.weight && <p className="text-red-500">{errors.weight.message}</p>}
+                    {errors.weight && <p className="text-red-500 text-sm">{errors.weight.message}</p>}
                 </div>
 
                 {/* Temperature */}
                 <div>
                     <Label htmlFor="temperature">Temperature (°C)</Label>
                     <Input id="temperature" type="number" {...register("temperature")} />
-                    {errors.temperature && <p className="text-red-500">{errors.temperature.message}</p>}
+                    {errors.temperature && <p className="text-red-500 text-sm">{errors.temperature.message}</p>}
                 </div>
 
                 {/* Pulse */}
                 <div>
                     <Label htmlFor="pulse">Pulse (bpm)</Label>
                     <Input id="pulse" type="number" {...register("pulse")} />
-                    {errors.pulse && <p className="text-red-500">{errors.pulse.message}</p>}
+                    {errors.pulse && <p className="text-red-500 text-sm">{errors.pulse.message}</p>}
                 </div>
 
                 {/* Case Type */}
@@ -181,35 +181,35 @@ export default function PatientForm() {
                             </Select>
                         )}
                     />
-                    {errors.caseType && <p className="text-red-500">{errors.caseType.message}</p>}
+                    {errors.caseType && <p className="text-red-500 text-sm">{errors.caseType.message}</p>}
                 </div>
 
                 {/* Doctor Name */}
                 <div>
                     <Label htmlFor="doctorName">Doctor Name</Label>
                     <Input id="doctorName" {...register("doctorName")} />
-                    {errors.doctorName && <p className="text-red-500">{errors.doctorName.message}</p>}
+                    {errors.doctorName && <p className="text-red-500 text-sm">{errors.doctorName.message}</p>}
                 </div>
 
                 {/* Problem */}
                 <div className="col-span-2">
                     <Label htmlFor="problem">Problem</Label>
                     <Textarea id="problem" {...register("problem")} />
-                    {errors.problem && <p className="text-red-500">{errors.problem.message}</p>}
+                    {errors.problem && <p className="text-red-500 text-sm">{errors.problem.message}</p>}
                 </div>
 
                 {/* Clinical Notes */}
                 {/* <div className="col-span-2">
           <Label htmlFor="clinicalNotes">Clinical Notes</Label>
           <Textarea id="clinicalNotes" {...register("clinicalNotes")} />
-          {errors.clinicalNotes && <p className="text-red-500">{errors.clinicalNotes.message}</p>}
+          {errors.clinicalNotes && <p className="text-red-500 text-sm">{errors.clinicalNotes.message}</p>}
         </div> */}
 
                 {/* Treatment */}
                 {/* <div className="col-span-2">
           <Label htmlFor="treatment">Treatment</Label>
           <Textarea id="treatment" {...register("treatment")} />
-          {errors.treatment && <p className="text-red-500">{errors.treatment.message}</p>}
+          {errors.treatment && <p className="text-red-500 text-sm">{errors.treatment.message}</p>}
         </div>*/}
             </div>
 
