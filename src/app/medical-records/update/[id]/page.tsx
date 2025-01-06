@@ -95,7 +95,7 @@ export default function UpdatePatient() {
                     </div>
                     <div>
                         <Label htmlFor="age">Age</Label>
-                        <Input id="age" name="age" value={patient.age} onChange={handleChange} required />
+                        <Input id="age" type="number" name="age" value={patient.age} onChange={handleChange} required />
                     </div>
                     <div>
                         <Label htmlFor="gender">Gender</Label>
@@ -111,19 +111,19 @@ export default function UpdatePatient() {
                     </div>
                     <div>
                         <Label htmlFor="phone">Phone</Label>
-                        <Input id="phone" name="phone" value={patient.phone} onChange={handleChange} required />
+                        <Input id="phone" type="number" name="phone" value={patient.phone} onChange={handleChange} required />
                     </div>
                     <div>
                         <Label htmlFor="weight">Weight</Label>
-                        <Input id="weight" name="weight" value={patient.weight} onChange={handleChange} required />
+                        <Input id="weight" type="number" name="weight" value={patient.weight} onChange={handleChange} required />
                     </div>
                     <div>
                         <Label htmlFor="temperature">Temperature</Label>
-                        <Input id="temperature" name="temperature" value={patient.temperature} onChange={handleChange} required />
+                        <Input id="temperature" type="number" name="temperature" value={patient.temperature} onChange={handleChange} required />
                     </div>
                     <div>
                         <Label htmlFor="pulse">Pulse</Label>
-                        <Input id="pulse" name="pulse" value={patient.pulse} onChange={handleChange} required />
+                        <Input id="pulse" type="number" name="pulse" value={patient.pulse} onChange={handleChange} required />
                     </div>
                     <div>
                         <Label htmlFor="caseType">Case Type</Label>

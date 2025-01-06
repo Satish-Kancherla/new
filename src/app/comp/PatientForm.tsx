@@ -94,7 +94,7 @@ export default function PatientForm() {
                 {/* Age */}
                 <div>
                     <Label htmlFor="age">Age</Label>
-                    <Input id="age" {...register("age")} />
+                    <Input id="age" type="number" {...register("age")} />
                     {errors.age && <p className="text-red-500">{errors.age.message}</p>}
                 </div>
 
@@ -137,28 +137,28 @@ export default function PatientForm() {
                 {/* Phone */}
                 <div>
                     <Label htmlFor="phone">Phone</Label>
-                    <Input id="phone" {...register("phone")} />
+                    <Input id="phone" type="number" {...register("phone")} />
                     {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
                 </div>
 
                 {/* Weight */}
                 <div>
                     <Label htmlFor="weight">Weight (kg)</Label>
-                    <Input id="weight" {...register("weight")} />
+                    <Input id="weight" type="number" {...register("weight")} />
                     {errors.weight && <p className="text-red-500">{errors.weight.message}</p>}
                 </div>
 
                 {/* Temperature */}
                 <div>
                     <Label htmlFor="temperature">Temperature (°C)</Label>
-                    <Input id="temperature" {...register("temperature")} />
+                    <Input id="temperature" type="number" {...register("temperature")} />
                     {errors.temperature && <p className="text-red-500">{errors.temperature.message}</p>}
                 </div>
 
                 {/* Pulse */}
                 <div>
                     <Label htmlFor="pulse">Pulse (bpm)</Label>
-                    <Input id="pulse" {...register("pulse")} />
+                    <Input id="pulse" type="number" {...register("pulse")} />
                     {errors.pulse && <p className="text-red-500">{errors.pulse.message}</p>}
                 </div>
 
