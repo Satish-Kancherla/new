@@ -1,0 +1,30 @@
+datasource db {
+   provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model MedicalRecord {
+  id            String   @id @default(uuid())
+  patientId     String   @unique
+  patientName   String
+  age           String
+  gender        String
+  reference     String
+  regDate       String
+  phone         String
+  weight        String
+  temperature   String
+  pulse         String
+  caseType      String
+  doctorName    String
+  problem       String
+  clinicalNotes String?
+  treatment     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
