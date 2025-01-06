@@ -46,7 +46,7 @@ export async function POST(request: Request) {
             data: {
                 ...body,
                 patientId: newPatientId,
-                regDate: new Date(body.regDate),
+               
             },
         });
 

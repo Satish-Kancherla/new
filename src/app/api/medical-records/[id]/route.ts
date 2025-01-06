@@ -29,8 +29,8 @@ export async function GET(
   }
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
-  const id = params.id;
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const id = (await params).id;
   let body;
 
   try {
