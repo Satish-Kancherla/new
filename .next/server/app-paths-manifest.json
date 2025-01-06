@@ -1,0 +1,11 @@
+{
+  "/page": "app/page.js",
+  "/api/stats/route": "app/api/stats/route.js",
+  "/patients-form/page": "app/patients-form/page.js",
+  "/patients/page": "app/patients/page.js",
+  "/api/medical-records/route": "app/api/medical-records/route.js",
+  "/medical-records/update/[id]/page": "app/medical-records/update/[id]/page.js",
+  "/api/medical-records/[id]/route": "app/api/medical-records/[id]/route.js",
+  "/medical-records/view/[id]/page": "app/medical-records/view/[id]/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js"
+}
