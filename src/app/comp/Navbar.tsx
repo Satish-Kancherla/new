@@ -55,11 +55,11 @@ export default function Navbar() {
             {isMenuOpen && (
                 <div className="md:hidden bg-white dark:bg-zinc-900 border-t shadow-md">
                     <ul className="flex flex-col gap-2 p-4">
-                        <li>
+                        {/* <li>
                             <ActiveLink href="/">Dashboard</ActiveLink>
-                        </li>
+                        </li> */}
                         <li>
-                            <ActiveLink href="/patients">Patients List</ActiveLink>
+                            <ActiveLink href="/">Patients List</ActiveLink>
                         </li>
                         <li>
                             <ActiveLink href="/patients-form">Add Patients</ActiveLink>
