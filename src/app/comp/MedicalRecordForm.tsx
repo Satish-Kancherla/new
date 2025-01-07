@@ -1,16 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { format, parseISO } from "date-fns";
+import { useReactToPrint } from "react-to-print";
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 interface Problem {
-    id: string;
+    id: string; 
     note: string;
     clinicalNotes: { id: string; note: string }[];
     treatments: { id: string; note: string }[];
@@ -47,6 +48,8 @@ export default function MedicalRecordForm({ id }: MedicalRecordDisplayProps) {
     const [record, setRecord] = useState<MedicalRecord | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const ref = useRef<HTMLDivElement>(null);
+    const reactToPrintFn = useReactToPrint({ contentRef: ref });
 
     useEffect(() => {
         async function fetchRecord() {
@@ -93,7 +96,7 @@ export default function MedicalRecordForm({ id }: MedicalRecordDisplayProps) {
     }
 
     return (
-        <div className="page-container flex flex-col min-h-screen">
+        <div className="page-container flex flex-col min-h-screen "  ref={ref}>
             <Card className="max-w-[800px] w-full mx-auto bg-white">
                 <div className="text-center justify-center border-b-2 border-gray-300 flex flex-col sm:flex-row items-center p-4 gap-4">
                     <img src="/logo1.jpeg" alt="Hospital Logo" className="w-20 h-20 sm:w-24 sm:h-24" />
@@ -178,7 +181,9 @@ export default function MedicalRecordForm({ id }: MedicalRecordDisplayProps) {
             </Card>
 
             <div className="flex justify-center gap-4 my-4 print:hidden">
-                <Button onClick={() => window.print()} variant="default">
+                <Button onClick={() => {
+                        reactToPrintFn();
+                    }} variant="default">
                     Print Record
                 </Button>
                 <Button onClick={() => router.push("/patients")} variant="outline">
