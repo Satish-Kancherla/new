@@ -20,6 +20,8 @@ export async function GET(request: NextRequest) {
                 patientId: true,
                 patientName: true,
                 caseType: true,
+                reference: true,
+                
             },
         });
         return NextResponse.json(records);
@@ -38,8 +40,6 @@ export async function POST(request: Request) {
             orderBy: { patientId: "desc" },
         });
 
-    
-
         const lastPatientId = lastRecord ? parseInt(lastRecord.patientId) : 99;
         const newPatientId = (lastPatientId + 1).toString().padStart(3, "0");
 
@@ -55,19 +55,19 @@ export async function POST(request: Request) {
                 temperature: body.temperature,
                 pulse: body.pulse,
                 caseType: body.caseType,
-                doctor:{
-                    connectOrCreate:{
-                        where:{
-                            name:body.doctorName
+                doctor: {
+                    connectOrCreate: {
+                        where: {
+                            name: body.doctorName,
                         },
-                        create:{
-                            name:body.doctorName
-                        }
-                    }
+                        create: {
+                            name: body.doctorName,
+                        },
+                    },
                 },
                 problems: {
                     create: body.problems.map((problem: string) => ({
-                      note: problem,
+                        note: problem,
                     })),
                 },
             },

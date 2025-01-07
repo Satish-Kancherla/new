@@ -12,20 +12,26 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import axios from "axios";
 import { toast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import { useEffect, useState } from "react";
 
 // Define Zod Schema for Validation
 const patientFormSchema = z.object({
     patientName: z.string().min(1, "Patient Name is required"),
-    age: z.string().regex(/^\d+$/, "Age must be a number"),
+    age: z
+        .string()
+        .regex(/^\d+$/, "Age must be a number")
+        .refine((age) => parseInt(age) <= 120, {
+            message: "Age must be less than or equal to 120",
+        }),
     gender: z.string().min(1, "Gender is required"),
-    reference: z.string().min(1, "Reference is required"),
+    reference: z.string().min(1, "Reference is required").optional().or(z.literal("")),
     regDate: z.string().refine((date) => !isNaN(Date.parse(date)), {
         message: "Invalid date format",
     }),
     phone: z.string().regex(/^\d{10}$/, "Phone number must be 10 digits"),
     weight: z.string().regex(/^\d+$/, "Weight must be a number"),
     temperature: z.string().regex(/^\d+(\.\d+)?$/, "Temperature must be a number"),
-    pulse: z.string().regex(/^\d{2,3}\/\d{2,3}$/, "Pulse must be a number"),
+    pulse: z.string().regex(/^\d{2,3}\/\d{2,3}$/, "Pulse must be in 'a/b' format"),
     caseType: z.string().min(1, "Case Type is required"),
     doctorName: z.string().min(1, "Doctor Name is required"),
     problem: z.string().min(1, "Problem is required"),
@@ -48,15 +54,27 @@ export default function PatientForm() {
     } = useForm<PatientFormData>({
         resolver: zodResolver(patientFormSchema),
         defaultValues: {
-            regDate: new Date().toISOString().split('T')[0], // Default to today's date (yyyy-mm-dd)
+            regDate: new Date().toISOString().split("T")[0], // Default to today's date (yyyy-mm-dd)
         },
     });
-
+    const [doctors, setDoctors] = useState<[{ name: string }] | []>([]);
+    const fetchDoctors = async () => {
+        await axios
+            .get("/api/doctors")
+            .then((response) => {
+                setDoctors(response.data.data);
+            })
+            .catch((error) => {
+                console.log("error fetching docs", error);
+            });
+    };
+    useEffect(() => {
+        fetchDoctors();
+    }, []);
     const onSubmit = async (formData: PatientFormData) => {
-        console.log("Form data:", formData);
         try {
             await axios
-                .post("/api/medical-records", formData)
+                .post("/api/medical-records", { ...formData, problems: formData.problem.split(",").map((problem) => problem.trim()) })
 
                 .then((response) => {
                     console.log("Record created successfully");
@@ -66,7 +84,11 @@ export default function PatientForm() {
                     toast({
                         title: "Record created successfully",
                         description: "",
-                        action: <ToastAction onClick={() => (router.push(`/medical-records/${response.data.id}`))} altText="Show">Show</ToastAction>
+                        action: (
+                            <ToastAction onClick={() => router.push(`/medical-records/${response.data.id}`)} altText="Show">
+                                Show
+                            </ToastAction>
+                        ),
                     });
                     reset();
                 })
@@ -190,7 +212,12 @@ export default function PatientForm() {
                 {/* Doctor Name */}
                 <div>
                     <Label htmlFor="doctorName">Doctor Name</Label>
-                    <Input id="doctorName" {...register("doctorName")} />
+                    <Input id="doctorName" list="doctorName-list" {...register("doctorName")} />
+                    <datalist id="doctorName-list">
+                        {doctors.map((doc, i) => (
+                            <option key={i}>{doc.name}</option>
+                        ))}
+                    </datalist>
                     {errors.doctorName && <p className="text-red-500 text-sm">{errors.doctorName.message}</p>}
                 </div>
 

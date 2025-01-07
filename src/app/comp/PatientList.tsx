@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Ellipsis} from "lucide-react";
+import { Ellipsis } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "@/hooks/use-toast";
 
@@ -65,26 +65,25 @@ export default function PatientList() {
     const handleDelete = async (id: string) => {
         // const confirmed = window.confirm("Are you sure you want to delete this record?");
         // if (confirmed) {
-            try {
-                const response = await fetch(`/api/medical-records/${id}`, {
-                    method: "DELETE",
-                });
-                if (response.ok) {
-                  toast({
+        try {
+            const response = await fetch(`/api/medical-records/${id}`, {
+                method: "DELETE",
+            });
+            if (response.ok) {
+                toast({
                     title: "Record Deleted successfully",
                     description: "",
                 });
-                    fetchPatients();
-                } else {
-                  toast({
+                fetchPatients();
+            } else {
+                toast({
                     title: "Failed to delete the record",
                     description: "",
                 });
-                    
-                }
-            } catch (error) {
-                console.error("Error deleting record:", error);
             }
+        } catch (error) {
+            console.error("Error deleting record:", error);
+        }
         // }
     };
 

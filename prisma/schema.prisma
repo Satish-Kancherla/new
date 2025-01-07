@@ -21,7 +21,7 @@ model MedicalRecord {
   caseType    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  refrence    String?
+  reference    String?
 
   doctor   Doctor? @relation(fields: [doctorId], references: [id])
   doctorId String?
