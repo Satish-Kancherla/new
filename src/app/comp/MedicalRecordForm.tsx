@@ -180,10 +180,12 @@ export default function MedicalRecordForm({ id }: MedicalRecordDisplayProps) {
                 </div>
             </Card>
 
-            <div className="flex justify-center gap-4 my-4 print:hidden">
+            <div className="flex justify-center gap-4 my-4 print:hidden no-print navbar">
                 <Button onClick={() => {
                         reactToPrintFn();
-                    }} variant="default">
+                    }} 
+                    variant="default"
+                    className="no-print navbar">
                     Print Record
                 </Button>
                 <Button onClick={() => router.push("/patients")} variant="outline">
