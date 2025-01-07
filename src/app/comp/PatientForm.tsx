@@ -25,7 +25,7 @@ const patientFormSchema = z.object({
     phone: z.string().regex(/^\d{10}$/, "Phone number must be 10 digits"),
     weight: z.string().regex(/^\d+$/, "Weight must be a number"),
     temperature: z.string().regex(/^\d+(\.\d+)?$/, "Temperature must be a number"),
-    pulse: z.string().regex(/^\d+$/, "Pulse must be a number"),
+    pulse: z.string().regex(/^\d{2,3}\/\d{2,3}$/, "Pulse must be a number"),
     caseType: z.string().min(1, "Case Type is required"),
     doctorName: z.string().min(1, "Doctor Name is required"),
     problem: z.string().min(1, "Problem is required"),
@@ -47,6 +47,9 @@ export default function PatientForm() {
         formState: { errors, isSubmitting },
     } = useForm<PatientFormData>({
         resolver: zodResolver(patientFormSchema),
+        defaultValues: {
+            regDate: new Date().toISOString().split('T')[0], // Default to today's date (yyyy-mm-dd)
+        },
     });
 
     const onSubmit = async (formData: PatientFormData) => {
@@ -77,7 +80,7 @@ export default function PatientForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-xl mx-auto border border-gray-300 p-4 rounded-lg shadow">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-2xl mx-auto border border-gray-300 p-4 rounded-lg shadow">
             <div className="flex justify-center mb-5">
                 <h1 className="font-semibold text-xl">Patient Form</h1>
             </div>
@@ -158,7 +161,7 @@ export default function PatientForm() {
                 {/* Pulse */}
                 <div>
                     <Label htmlFor="pulse">Pulse (bpm)</Label>
-                    <Input id="pulse" type="number" {...register("pulse")} />
+                    <Input id="pulse" {...register("pulse")} />
                     {errors.pulse && <p className="text-red-500 text-sm">{errors.pulse.message}</p>}
                 </div>
 
@@ -213,7 +216,7 @@ export default function PatientForm() {
         </div>*/}
             </div>
 
-            <Button type="submit" disabled={isSubmitting} className="w-full">
+            <Button type="submit" disabled={isSubmitting} className="w-full bg-blue-500 hover:bg-blue-600 text-white">
                 {isSubmitting ? "Submitting..." : "Submit"}
             </Button>
         </form>

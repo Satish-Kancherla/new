@@ -140,16 +140,16 @@ export default function MedicalRecordDisplay({ id }: MedicalRecordDisplayProps) 
         {/* Patient Details */}
         <div className="grid grid-cols-2 gap-4 p-4 text-sm ml-10 ">
           <div className="grid grid-cols-2 gap-2 justify-self-start capitalize">
-            <div className="font-semibold">Patient</div>
-            <div>: {record.patientName}</div>
             <div className="font-semibold">Patient Id</div>
             <div>: {record.patientId}</div>
+            <div className="font-semibold">Patient Name</div>
+            <div>: {record.patientName}</div>
             <div className="font-semibold">Age</div>
             <div>: {record.age}</div>
             {/* <div className="font-semibold">Gender</div>
             <div>: {record.gender}</div> */}
-            <div className="font-semibold">Reference</div>
-            <div>: {record.reference}</div>
+            {/* <div className="font-semibold">Reference</div>
+            <div>: {record.reference}</div> */}
             <div className="font-semibold">Phone</div>
             <div>: {record.phone}</div>
           </div>

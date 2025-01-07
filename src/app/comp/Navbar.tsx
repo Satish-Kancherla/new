@@ -1,62 +1,72 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Blocks } from "lucide-react";
+import { Menu } from "lucide-react";
 import Image from "next/image";
 import Link, { LinkProps } from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React from "react";
-// import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-// import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import React, { useState } from "react";
 
 function ActiveLink({ href, children }: LinkProps & { children: React.ReactNode }) {
     const pathname = usePathname();
     return (
-        <Link href={href} className={` ${pathname === href ? "underline" : ""}`}>
-          <Button variant={'ghost'} className={cn("text-base",pathname === href && "bg-zinc-100 dark:bg-zinc-800" )} >
-
-            {children}
-          </Button>
+        <Link href={href}>
+            <Button variant="ghost" className={cn("text-base", pathname === href && "bg-zinc-100 dark:bg-zinc-800 ")}>
+                {children}
+            </Button>
         </Link>
     );
 }
+
 export default function Navbar() {
     const router = useRouter();
-    const signout = () => {
-        router.push("/signout");
-    };
-    return (
-        <div className="w-full  md:px-12 flex items-center justify-between  border border-b-px dark:bg-zinc-800 ">
-            <div className="flex items-center justify-center gap-4">
-                <div className=" mx-auto px-4 py-2 flex  gap-5 items-center">
-                    <Image src="/logo1.jpeg" alt="Hospital Logo" className="" width={70} height={24} />
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-                    <div className="md:flex md:space-x-6 md:items-center">
-                        <h1 className="text-2xl font-semibold"> Sudheer Hospital And Neuro Center</h1>
-                    </div>
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    const signout = () => router.push("/signout");
+
+    return (
+        <nav className="w-full border-b dark:bg-zinc-800 shadow-md">
+            <div className="container mx-auto px-4 md:px-8 lg:px-12 flex items-center justify-between py-3">
+                {/* Logo and Title */}
+                <div className="flex items-center gap-4">
+                    <Image src="/logo1.jpeg" alt="Hospital Logo" width={50} height={50} className="w-12 h-12" />
+                    <h1 className="text-base sm:text-lg md:text-xl lg:text-xl font-bold md:font-semibold text-center md:text-left">
+                        Sudheer Hospital And Neuro Center
+                    </h1>
                 </div>
-                <div className=" flex gap-2 ">
-                    <ActiveLink href={"/"}>Dashboard</ActiveLink>
-                    <ActiveLink href={"/patients"}>Patients List</ActiveLink>
-                    <ActiveLink href={"/patients-form"}>Add Patients</ActiveLink>
+
+                {/* Desktop Menu */}
+                <div className="hidden md:flex gap-4 items-center">
+                    {/* <ActiveLink href="/">Dashboard</ActiveLink> */}
+                    <ActiveLink href="/">Patients List</ActiveLink>
+                    <ActiveLink href="/patients-form">Patients Registration</ActiveLink>
+                </div>
+
+                {/* Mobile Menu Toggle */}
+                <div className="md:hidden">
+                    <Button variant="ghost" onClick={toggleMenu}>
+                        <Menu size={24} />
+                    </Button>
                 </div>
             </div>
-            {/* <div className="">
-                <DropdownMenu>
-                    <DropdownMenuTrigger>
-                        <Avatar>
-                            <AvatarImage src="" />
-                            <AvatarFallback>AU</AvatarFallback>
-                        </Avatar>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>Billing</DropdownMenuItem>
-                        <DropdownMenuItem className="text-red-500 dark:text-red-600 " onClick={signout}>Sign out</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            </div> */}
-        </div>
+
+            {/* Mobile Dropdown Menu */}
+            {isMenuOpen && (
+                <div className="md:hidden bg-white dark:bg-zinc-900 border-t shadow-md">
+                    <ul className="flex flex-col gap-2 p-4">
+                        <li>
+                            <ActiveLink href="/">Dashboard</ActiveLink>
+                        </li>
+                        <li>
+                            <ActiveLink href="/patients">Patients List</ActiveLink>
+                        </li>
+                        <li>
+                            <ActiveLink href="/patients-form">Add Patients</ActiveLink>
+                        </li>
+                    </ul>
+                </div>
+            )}
+        </nav>
     );
 }

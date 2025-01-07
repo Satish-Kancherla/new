@@ -105,10 +105,10 @@ export default function MedicalRecordForm({ id }: MedicalRecordDisplayProps) {
         {/* Patient Details */}
         <div className="grid grid-cols-2 gap-4 p-4 text-sm">
           <div className="grid grid-cols-2 gap-2 capitalize">
-            <div className="font-semibold">Patient</div>
-            <div>: {record.patientName}</div>
             <div className="font-semibold">Patient Id</div>
             <div>: {record.patientId}</div>
+            <div className="font-semibold">Patient Name</div>
+            <div>: {record.patientName}</div>
             <div className="font-semibold">Age</div>
             <div>: {record.age}</div>
             <div className="font-semibold">Gender</div>
