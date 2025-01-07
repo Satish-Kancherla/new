@@ -84,16 +84,12 @@ export default function MedicalRecordForm({ id }: MedicalRecordDisplayProps) {
   return (
     <div className="page-container flex flex-col min-h-screen">
       <Card className="max-w-[800px] w-full mx-auto bg-white">
-        <div className="text-center border-b-2 border-gray-300 flex items-center p-4">
-          <div>
-            <img src="/logo1.jpeg" alt="Hospital Logo" className="w-24 h-24 mb-2 ml-5" />
-          </div>
-          <div className="flex-1">
-            <h1 className="text-xl font-semibold">Sudheer Hospital And Neuro Center</h1>
-            {/* <p className="text-sm font-semibold">Infront of Arvind Kidney Center, Nakkalola Center, Brundhavanam, Nellore</p>
-            <p className="text-sm font-semibold">
-              Cell: 9849518444, 6301558446, Email: sudheerhospitalnln@gmail.com, Website: www.sudheerhospital.com
-            </p> */}
+      <div className="text-center justify-center border-b-2 border-gray-300 flex flex-col sm:flex-row items-center p-4 gap-4">
+          <img src="/logo1.jpeg" alt="Hospital Logo" className="w-20 h-20 sm:w-24 sm:h-24" />
+          <div className="text-center sm:text-left">
+            <h1 className="text-lg sm:text-xl font-semibold">Sudheer Hospital And Neuro Center</h1>
+            {/* <p className="text-sm hidden sm:block">Infront of Arvind Kidney Center, Nellore</p>
+            <p className="text-sm hidden sm:block">Phone: 9849518444 | Email: sudheerhospital@gmail.com</p> */}
           </div>
         </div>
 

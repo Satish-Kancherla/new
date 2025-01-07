@@ -26,7 +26,7 @@ export default function Navbar() {
     const signout = () => router.push("/signout");
 
     return (
-        <nav className="w-full border-b dark:bg-zinc-800 shadow-md">
+        <nav className="no-print navbar w-full border-b dark:bg-zinc-800 shadow-md">
             <div className="container mx-auto px-4 md:px-8 lg:px-12 flex items-center justify-between py-3">
                 {/* Logo and Title */}
                 <div className="flex items-center gap-4">

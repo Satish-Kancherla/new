@@ -19,7 +19,6 @@ export async function GET(request: NextRequest) {
                 id: true,
                 patientId: true,
                 patientName: true,
-                reference: true,
                 caseType: true,
             },
         });
@@ -39,14 +38,42 @@ export async function POST(request: Request) {
             orderBy: { patientId: "desc" },
         });
 
+    
+
         const lastPatientId = lastRecord ? parseInt(lastRecord.patientId) : 99;
         const newPatientId = (lastPatientId + 1).toString().padStart(3, "0");
 
         const newRecord = await prisma.medicalRecord.create({
             data: {
-                ...body,
                 patientId: newPatientId,
-               
+                patientName: body.patientName,
+                age: body.age,
+                gender: body.gender,
+                regDate: body.regDate,
+                phone: body.phone,
+                weight: body.weight,
+                temperature: body.temperature,
+                pulse: body.pulse,
+                caseType: body.caseType,
+                doctor:{
+                    connectOrCreate:{
+                        where:{
+                            name:body.doctorName
+                        },
+                        create:{
+                            name:body.doctorName
+                        }
+                    }
+                },
+                problems: {
+                    create: body.problems.map((problem: string) => ({
+                      note: problem,
+                    })),
+                },
+            },
+            include: {
+                doctor: true,
+                problems: true,
             },
         });
 
@@ -56,5 +83,3 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "Failed to create medical record" }, { status: 500 });
     }
 }
-
-

@@ -42,7 +42,8 @@ export default function RootLayout({
                         <AppSidebar /> */}
                         {/* <SidebarTrigger /> */}
                         <main className="w-full">
-                            <Navbar />
+                            <div  className="navbar no-print">
+                            <Navbar /></div>
                             {children}
                         </main>
                         <Toaster />
