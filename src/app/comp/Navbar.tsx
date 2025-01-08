@@ -30,7 +30,7 @@ export default function Navbar() {
             <div className="container mx-auto px-4 md:px-8 lg:px-12 flex items-center justify-between py-3">
                 {/* Logo and Title */}
                 <div className="flex items-center gap-4">
-                    <Image src="/logo1.jpeg" alt="Hospital Logo" width={50} height={50} className="w-12 h-12" />
+                    <Image src="/logo1.jpeg" alt="Hospital Logo" width={56} height={56} className="w-14 h-14 object-contain" />
                     <h1 className="text-base sm:text-lg md:text-xl lg:text-xl font-bold md:font-semibold text-center md:text-left">
                         Sudheer Hospital And Neuro Center
                     </h1>

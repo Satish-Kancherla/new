@@ -94,7 +94,7 @@ export default function PatientForm() {
                     reset();
                     setTimeout(() => {
                         window.location.reload();
-                    }, 5000);
+                    }, 2000);
                 })
 
                 .catch((error) => {
@@ -179,7 +179,7 @@ export default function PatientForm() {
 
                 {/* Temperature */}
                 <div>
-                    <Label htmlFor="temperature">Temperature (°C)</Label>
+                    <Label htmlFor="temperature">Temperature (°F)</Label>
                     <Input id="temperature" type="number" {...register("temperature")} />
                     {errors.temperature && <p className="text-red-500 text-sm">{errors.temperature.message}</p>}
                 </div>

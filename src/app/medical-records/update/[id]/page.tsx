@@ -169,15 +169,15 @@ export default function UpdatePatient() {
                                         <Input id="phone" type="tel" name="phone" value={patient.phone} onChange={handleChange} required />
                                     </div>
                                     <div>
-                                        <Label htmlFor="weight">Weight</Label>
+                                        <Label htmlFor="weight">Weight (kg)</Label>
                                         <Input id="weight" type="number" name="weight" value={patient.weight} onChange={handleChange} required />
                                     </div>
                                     <div>
-                                        <Label htmlFor="temperature">Temperature</Label>
+                                        <Label htmlFor="temperature">Temperature (°F)</Label>
                                         <Input id="temperature" type="number" name="temperature" value={patient.temperature} onChange={handleChange} required />
                                     </div>
                                     <div>
-                                        <Label htmlFor="pulse">Pulse</Label>
+                                        <Label htmlFor="pulse">Pulse (bpm)</Label>
                                         <Input id="pulse" name="pulse" value={patient.pulse} onChange={handleChange} required />
                                     </div>
                                     <div>
