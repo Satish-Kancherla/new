@@ -124,7 +124,7 @@ export default function PatientList() {
                         <TableHeader>
                             <TableRow>
                                 <TableHead className="font-semibold">Patient ID</TableHead>
-                                <TableHead className="font-semibold">Name</TableHead>
+                                <TableHead className="font-semibold">Patient Name</TableHead>
                                 <TableHead className="font-semibold">Reference</TableHead>
                                 <TableHead className="font-semibold">Case Type</TableHead>
                                 <TableHead className="font-semibold">Actions</TableHead>
