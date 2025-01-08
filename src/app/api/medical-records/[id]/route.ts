@@ -85,21 +85,39 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id;
     try {
-        await prisma.medicalRecord.delete({
-            where: { id },
-            include: {
-                problems: {
-                    include: {
-                        clinicalNotes: true,
-                        treatments: true,
-                        medicalRecord: true,
-                    },
+        // First, delete the clinical notes and treatments related to problems of the medical record
+        await prisma.clinicalNote.deleteMany({
+            where: {
+                problem: {
+                    medicalRecordId: id,
                 },
             },
         });
+
+        await prisma.treatment.deleteMany({
+            where: {
+                problem: {
+                    medicalRecordId: id,
+                },
+            },
+        });
+
+        // Then, delete the problems related to the medical record
+        await prisma.problem.deleteMany({
+            where: {
+                medicalRecordId: id,
+            },
+        });
+
+        // Finally, delete the medical record itself
+        await prisma.medicalRecord.delete({
+            where: { id },
+        });
+
         return NextResponse.json({ message: "Record deleted successfully" });
     } catch (error) {
         console.error("Error deleting record:", error);
         return NextResponse.json({ error: "Failed to delete record" }, { status: 400 });
     }
 }
+

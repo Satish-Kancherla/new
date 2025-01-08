@@ -9,7 +9,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { format, parseISO } from "date-fns";
 import ProblemManager from "@/components/ProblemManager";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import axios from "axios";
+import { Loader, LoaderCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface Patient {
     patientName: string;
@@ -94,7 +97,7 @@ export default function UpdatePatient() {
 
     const handleUpdate = async () => {
         console.log(patient);
-        
+
         try {
             const response = await fetch(`/api/medical-records/${id}`, {
                 method: "PUT",
@@ -116,9 +119,14 @@ export default function UpdatePatient() {
         setPatient((prev) => ({ ...prev, [name]: value }));
     };
 
-    if (loading) {
-        return <p>Loading...</p>;
-    }
+    if (loading) return (
+        <div className="flex items-center justify-center h-screen">
+            <div className="flex flex-col items-center">
+                <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                <p className="mt-4 text-gray-700 text-semibold ">Loading patient details...</p>
+            </div>
+        </div>
+    );
 
     if (error) {
         return <p className="text-red-500">{error}</p>;
@@ -131,64 +139,86 @@ export default function UpdatePatient() {
             </CardHeader>
             <CardContent>
                 <form className="">
-                    <div className="grid grid-cols-2 gap-5">
-                        <div>
-                            <Label htmlFor="patientName">Patient Name</Label>
-                            <Input id="patientName" name="patientName" value={patient.patientName} onChange={handleChange} required />
-                        </div>
-                        <div>
-                            <Label htmlFor="age">Age</Label>
-                            <Input id="age" type="number" name="age" value={patient.age} onChange={handleChange} required />
-                        </div>
-                        <div>
-                            <Label htmlFor="gender">Gender</Label>
-                            <Input id="gender" name="gender" value={patient.gender} onChange={handleChange} required />
-                        </div>
-                        <div>
-                            <Label htmlFor="reference">Reference</Label>
-                            <Input id="reference" name="reference" value={patient.reference} onChange={handleChange} required />
-                        </div>
-                        <div>
-                            <Label htmlFor="regDate">Registration Date</Label>
-                            <Input id="regDate" name="regDate" type="date" value={patient.regDate} onChange={handleChange} required />
-                        </div>
-                        <div>
-                            <Label htmlFor="phone">Phone</Label>
-                            <Input id="phone" type="tel" name="phone" value={patient.phone} onChange={handleChange} required />
-                        </div>
-                        <div>
-                            <Label htmlFor="weight">Weight</Label>
-                            <Input id="weight" type="number" name="weight" value={patient.weight} onChange={handleChange} required />
-                        </div>
-                        <div>
-                            <Label htmlFor="temperature">Temperature</Label>
-                            <Input id="temperature" type="number" name="temperature" value={patient.temperature} onChange={handleChange} required />
-                        </div>
-                        <div>
-                            <Label htmlFor="pulse">Pulse</Label>
-                            <Input id="pulse" name="pulse" value={patient.pulse} onChange={handleChange} required />
-                        </div>
-                        <div>
-                            <Label htmlFor="caseType">Case Type</Label>
-                            <Input id="caseType" name="caseType" value={patient.caseType} onChange={handleChange} required />
-                        </div>
-                        <div>
-                            <Label htmlFor="doctorName">Doctor Name</Label>
-                            <Input id="doctorName" name="doctorName" list="doctorName-list" value={patient.doctorName} onChange={handleChange} required />
-                            <datalist id="doctorName-list">
-                                {doctors.map((doc, i) => (
-                                    <option key={i}>{doc.name}</option>
-                                ))}
-                            </datalist>
-                        </div>
-                    </div>
-                    <Button className="my-5 w-full bg-blue-500 hover:bg-blue-600" type="button" onClick={handleUpdate}>
-                        Update
-                    </Button>
+                    <Accordion type="single" collapsible>
+                        <AccordionItem value="personal-details">
+                            <AccordionTrigger className="text-lg font-semibold">Personal Details</AccordionTrigger>
+                            <AccordionContent>
+                                <div className="grid grid-cols-2 gap-5">
+                                    <div>
+                                        <Label htmlFor="patientName">Patient Name</Label>
+                                        <Input id="patientName" name="patientName" value={patient.patientName} onChange={handleChange} required />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="age">Age</Label>
+                                        <Input id="age" type="number" name="age" value={patient.age} onChange={handleChange} required />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="gender">Gender</Label>
+                                        <Input id="gender" name="gender" value={patient.gender} onChange={handleChange} required />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="reference">Reference</Label>
+                                        <Input id="reference" name="reference" value={patient.reference} onChange={handleChange} required />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="regDate">Registration Date</Label>
+                                        <Input id="regDate" name="regDate" type="date" value={patient.regDate} onChange={handleChange} required />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="phone">Phone</Label>
+                                        <Input id="phone" type="tel" name="phone" value={patient.phone} onChange={handleChange} required />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="weight">Weight</Label>
+                                        <Input id="weight" type="number" name="weight" value={patient.weight} onChange={handleChange} required />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="temperature">Temperature</Label>
+                                        <Input id="temperature" type="number" name="temperature" value={patient.temperature} onChange={handleChange} required />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="pulse">Pulse</Label>
+                                        <Input id="pulse" name="pulse" value={patient.pulse} onChange={handleChange} required />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="caseType">Case Type</Label>
+                                        <Input id="caseType" name="caseType" value={patient.caseType} onChange={handleChange} required />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="doctorName">Doctor Name</Label>
+                                        <Input
+                                            id="doctorName"
+                                            name="doctorName"
+                                            list="doctorName-list"
+                                            value={patient.doctorName}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                        <datalist id="doctorName-list">
+                                            {doctors.map((doc, i) => (
+                                                <option key={i}>{doc.name}</option>
+                                            ))}
+                                        </datalist>
+                                    </div>
+                                </div>
+
+                                <Button className="my-5 w-full bg-blue-500 hover:bg-blue-600" type="button" onClick={handleUpdate}>
+                                    Update
+                                </Button>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
                 </form>
-                <div className="col-span-2">
-                    <ProblemManager medicalRecordId={id as string} initialProblems={patient.problems}/>
-                </div>
+                <Accordion type="single" collapsible>
+                    <AccordionItem value="personal-details">
+                        <AccordionTrigger className="text-lg font-semibold">Problems Details</AccordionTrigger>
+                        <AccordionContent>
+                            <div className="col-span-2">
+                                <ProblemManager medicalRecordId={id as string} initialProblems={patient.problems} />
+                            </div>
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
             </CardContent>
         </Card>
     );

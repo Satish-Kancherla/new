@@ -58,6 +58,7 @@ export default function PatientForm() {
         },
     });
     const [doctors, setDoctors] = useState<[{ name: string }] | []>([]);
+    
     const fetchDoctors = async () => {
         await axios
             .get("/api/doctors")
@@ -83,7 +84,7 @@ export default function PatientForm() {
 
                     toast({
                         title: "Record created successfully",
-                        description: "",
+                        description: "The page will refresh in a moment",
                         action: (
                             <ToastAction onClick={() => router.push(`/medical-records/${response.data.id}`)} altText="Show">
                                 Show
@@ -91,6 +92,9 @@ export default function PatientForm() {
                         ),
                     });
                     reset();
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 5000);
                 })
 
                 .catch((error) => {
@@ -243,7 +247,7 @@ export default function PatientForm() {
         </div>*/}
             </div>
 
-            <Button type="submit" disabled={isSubmitting} className="w-full bg-blue-500 hover:bg-blue-600 text-white">
+            <Button type="submit" disabled={isSubmitting} className="w-full bg-blue-500  hover:bg-blue-600 text-white">
                 {isSubmitting ? "Submitting..." : "Submit"}
             </Button>
         </form>

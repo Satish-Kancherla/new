@@ -157,12 +157,12 @@ export default function MedicalRecordForm({ id }: MedicalRecordDisplayProps) {
                             {record.problems.map((problem) => (
                                 <TableRow key={problem.id} className="">
                                     <TableCell className="align-top">
-                                        <div className="whitespace-pre-line capitalize">{problem.note}</div>
+                                        <div className="whitespace-pre-line truncate capitalize ">{problem.note}</div>
                                     </TableCell>
                                     <TableCell className="align-top">
                                         {problem.clinicalNotes.map((clinicalNote) => (
                                             <div key={clinicalNote.id} className="mb-2">
-                                                <p className="whitespace-pre-line truncate capitalize">{clinicalNote.note}</p>
+                                                <p className="whitespace-pre-line truncate capitalize ">{clinicalNote.note}</p>
                                             </div>
                                         ))}
                                     </TableCell>

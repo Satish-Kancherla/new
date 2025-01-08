@@ -49,6 +49,7 @@ export async function POST(request: Request) {
                 patientName: body.patientName,
                 age: body.age,
                 gender: body.gender,
+                reference:body.reference,
                 regDate: body.regDate,
                 phone: body.phone,
                 weight: body.weight,

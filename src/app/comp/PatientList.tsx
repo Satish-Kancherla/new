@@ -9,6 +9,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import { Ellipsis } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "@/hooks/use-toast";
+import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
+
 
 interface Patient {
     id: string;
@@ -24,6 +26,7 @@ export default function PatientList() {
     const [patients, setPatients] = useState<Patient[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [selectedPatientId, setSelectedPatientId] = useState<string | null>(null);
 
     useEffect(() => {
         fetchPatients(searchId);
@@ -63,8 +66,7 @@ export default function PatientList() {
     };
 
     const handleDelete = async (id: string) => {
-        // const confirmed = window.confirm("Are you sure you want to delete this record?");
-        // if (confirmed) {
+        if (!selectedPatientId) return;
         try {
             const response = await fetch(`/api/medical-records/${id}`, {
                 method: "DELETE",
@@ -83,8 +85,13 @@ export default function PatientList() {
             }
         } catch (error) {
             console.error("Error deleting record:", error);
+            toast({
+                title: "Error",
+                description: "An error occurred while deleting the record.",
+            });
+        } finally {
+            setSelectedPatientId(null); // Reset selected patient after operation
         }
-        // }
     };
 
     if (loading && !patients.length) {
@@ -103,8 +110,8 @@ export default function PatientList() {
 
     return (
         <div className="space-y-6">
-            <div className="flex gap-4 items-center">
-                <Input placeholder="Search by Patient ID " value={searchId} onChange={(e) => setSearchId(e.target.value)} className="max-w-[200px]" />
+            <div className="flex flex-col sm:flex-row gap-4 items-center">
+                <Input placeholder="Search by Patient ID" value={searchId} onChange={(e) => setSearchId(e.target.value)} className="w-full sm:max-w-[200px]" />
             </div>
 
             {error ? (
@@ -141,9 +148,34 @@ export default function PatientList() {
                                                 <DropdownMenuItem onClick={() => handleOp(patient.id)}>Op</DropdownMenuItem>
                                                 <DropdownMenuItem onClick={() => handleView(patient.id)}>View</DropdownMenuItem>
                                                 <DropdownMenuItem onClick={() => handleUpdate(patient.id)}>Update</DropdownMenuItem>
-                                                <DropdownMenuItem onClick={() => handleDelete(patient.id)} className="text-red-500">
-                                                    Delete
-                                                </DropdownMenuItem>
+                                                <AlertDialog>
+                                                    <AlertDialogTrigger asChild>
+                                                        <DropdownMenuItem
+                                                            onSelect={(e) => e.preventDefault()} // Prevent default close behavior
+                                                            onClick={() => setSelectedPatientId(patient.id)}
+                                                            className="text-red-500 focus:bg-red-500 focus:text-white"
+                                                        >
+                                                            Delete
+                                                        </DropdownMenuItem>
+                                                    </AlertDialogTrigger>
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                                                            <AlertDialogDescription>
+                                                                This action cannot be undone. This will permanently delete the record.
+                                                            </AlertDialogDescription>
+                                                        </AlertDialogHeader>
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                            <AlertDialogAction
+                                                                onClick={() => handleDelete(patient.id)}
+                                                                className="bg-red-500 hover:bg-red-600"
+                                                            >
+                                                                Yes, Delete
+                                                            </AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                </AlertDialog>
                                             </DropdownMenuContent>
                                         </DropdownMenu>
                                     </TableCell>
@@ -156,3 +188,4 @@ export default function PatientList() {
         </div>
     );
 }
+
