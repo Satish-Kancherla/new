@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { cloneElement } from "react";
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id;

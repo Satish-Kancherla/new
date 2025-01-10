@@ -48,13 +48,13 @@ model Problem {
 model ClinicalNote {
   id        String  @id @default(uuid())
   note      String
-  problem   Problem @relation("ProblemClinicalNotes", fields: [problemId], references: [id])
+  problem   Problem @relation("ProblemClinicalNotes", fields: [problemId], references: [id],onDelete: Cascade)
   problemId String
 }
 
 model Treatment {
   id        String  @id @default(uuid())
   note      String
-  problem   Problem @relation("ProblemTreatments", fields: [problemId], references: [id])
+  problem   Problem @relation("ProblemTreatments", fields: [problemId], references: [id],onDelete: Cascade)
   problemId String
 }

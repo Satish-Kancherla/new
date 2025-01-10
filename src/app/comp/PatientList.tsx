@@ -144,7 +144,7 @@ export default function PatientList() {
                                                 {/* <Menu className="cursor-pointer" /> */}
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent>
-                                                <DropdownMenuSeparator />
+                                                {/* <DropdownMenuSeparator /> */}
                                                 <DropdownMenuItem onClick={() => handleOp(patient.id)}>Op</DropdownMenuItem>
                                                 <DropdownMenuItem onClick={() => handleView(patient.id)}>View</DropdownMenuItem>
                                                 <DropdownMenuItem onClick={() => handleUpdate(patient.id)}>Update</DropdownMenuItem>

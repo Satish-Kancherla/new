@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,7 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/
 import axios from "axios";
 import { Loader, LoaderCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { cleanProblem } from "@/actions/problemActions";
 
 interface Patient {
     patientName: string;
@@ -47,7 +48,6 @@ const defaultPatient: Patient = {
 export default function UpdatePatient() {
     const router = useRouter();
     const { id } = useParams();
-
     const [patient, setPatient] = useState<Patient>(defaultPatient);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -65,6 +65,13 @@ export default function UpdatePatient() {
     useEffect(() => {
         fetchDoctors();
     }, []);
+    useLayoutEffect(() => {
+        return () => {
+            cleanProblem(id as string);
+            console.log('hahaha');
+            
+        };
+    }, []);
 
     useEffect(() => {
         const fetchPatient = async () => {
@@ -74,8 +81,6 @@ export default function UpdatePatient() {
                     throw new Error("Failed to fetch patient data");
                 }
                 const data = await response.json();
-                console.log(data);
-
                 setPatient({
                     ...defaultPatient,
                     ...data,
@@ -119,14 +124,15 @@ export default function UpdatePatient() {
         setPatient((prev) => ({ ...prev, [name]: value }));
     };
 
-    if (loading) return (
-        <div className="flex items-center justify-center h-screen">
-            <div className="flex flex-col items-center">
-                <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-                <p className="mt-4 text-gray-700 text-semibold ">Loading patient details...</p>
+    if (loading)
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <div className="flex flex-col items-center">
+                    <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                    <p className="mt-4 text-gray-700 text-semibold ">Loading patient details...</p>
+                </div>
             </div>
-        </div>
-    );
+        );
 
     if (error) {
         return <p className="text-red-500">{error}</p>;
@@ -186,14 +192,7 @@ export default function UpdatePatient() {
                                     </div>
                                     <div>
                                         <Label htmlFor="doctorName">Doctor Name</Label>
-                                        <Input
-                                            id="doctorName"
-                                            name="doctorName"
-                                            list="doctorName-list"
-                                            value={patient.doctorName}
-                                            onChange={handleChange}
-                                            required
-                                        />
+                                        <Input id="doctorName" name="doctorName" list="doctorName-list" value={patient.doctorName} onChange={handleChange} required />
                                         <datalist id="doctorName-list">
                                             {doctors.map((doc, i) => (
                                                 <option key={i}>{doc.name}</option>
@@ -214,7 +213,7 @@ export default function UpdatePatient() {
                         <AccordionTrigger className="text-lg font-semibold">Problems Details</AccordionTrigger>
                         <AccordionContent>
                             <div className="col-span-2">
-                                <ProblemManager medicalRecordId={id as string} initialProblems={patient.problems} />
+                                <ProblemManager medicalRecordId={id as string} />
                             </div>
                         </AccordionContent>
                     </AccordionItem>
